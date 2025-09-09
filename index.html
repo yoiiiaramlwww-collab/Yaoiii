@@ -1,221 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Developers Bot Yaoiii</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
-      font-family: 'Poppins', sans-serif;
-      color: white;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Developers Bot Yaoiii</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+    overflow: hidden;
+  }
 
-    .wrapper {
-      aspect-ratio: 16 / 9;
-      width: 90%;
-      max-width: 1200px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
-      padding: 20px;
-    }
+  .bg-image {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: blur(6px) brightness(0.5);
+  }
 
-    /* Profil + bingkai emas */
-    .profile-container {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .profile-container::before {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      background: conic-gradient(#ffd700,#ffcc33,#ffb700,#ffd700);
-      animation: spin 6s linear infinite;
-      box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
-      z-index: 0;
-    }
-    .profile-container img {
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      position: relative;
-      z-index: 1;
-      border: 5px solid rgba(255, 215, 0, 0.8);
-      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+  .wrapper {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(0,0,0,0.55);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
 
-    h1 {
-      font-size: 28px;
-      margin-bottom: 15px;
-      text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-      color: #ffd700;
-    }
+  .logo-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 8px;
+  }
+  .logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border: 3px solid #000;
+  }
 
-    /* Tombol utama */
-    .btn-group {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .btn-group a, .btn-group button {
-      padding: 12px 25px;
-      background: #25d366;
-      color: white;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      border-radius: 30px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn-group a:hover, .btn-group button:hover {
-      background: #1eb656;
-    }
+  .logo-frame {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top: 4px solid #fff; /* placeholder */
+    box-shadow: 0 0 25px 5px #fff; /* placeholder */
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    animation: spin 4s linear infinite, blink 1s infinite;
+  }
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to   { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.5; }
+  }
 
-    /* Dropdown */
-    .dropdown {
-      margin-top: 15px;
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .dropdown a {
-      background: #ffd700;
-      color: black;
-      padding: 10px 20px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .dropdown a:hover {
-      background: #e6c200;
-    }
+  .logo-title { font-size: 12px; margin-bottom: 15px; }
+  h1 { font-size: 24px; margin-bottom: 20px; text-shadow: 0 0 10px #fff; }
 
-    /* Player bulat */
-    .music-player {
-      margin-top: 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-    .play-btn {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #1db954, #128c3c);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      font-size: 28px;
-      color: white;
-      box-shadow: 0 0 20px rgba(29, 185, 84, 0.6);
-      transition: 0.3s;
-    }
-    .play-btn:hover {
-      transform: scale(1.1);
-    }
-    .song-title {
-      font-size: 16px;
-      color: #ffd700;
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
-    }
-    .spotify-link {
-      margin-top: 8px;
-      font-size: 14px;
-      color: #1db954;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .spotify-link:hover {
-      text-decoration: underline;
-    }
+  .btn-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+  .btn-group button { padding: 10px 14px; font-size: 14px; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; }
 
-    audio { display: none; }
-  </style>
+  .sub-buttons { display: flex; flex-direction: column; gap: 8px; max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; }
+  .sub-buttons.show { max-height: 500px; opacity: 1; }
+  .mini-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; background: linear-gradient(135deg, #ff9f43, #ff6f00); margin: 5px auto; width: 160px; }
+  .mini-btn img { width: 14px; height: 14px; }
+
+  .player-bar { display: flex; align-items: center; gap: 14px; padding: 10px 16px; background: rgba(255,255,255,0.9); border-radius: 16px; margin-top: 20px; color: #000; }
+  .cover { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; }
+  .info { flex: 1; text-align: left; }
+  .title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: #000; }
+  .time { font-size: 12px; color: #555; }
+  .play-btn { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 50%; }
+  .play-btn img { width: 32px; height: 32px; }
+
+  .bottom-links { display: flex; justify-content: center; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+  .img-btn { display: flex; flex-direction: column; align-items: center; text-decoration: none; }
+  .img-btn img { width: 48px; height: 48px; border-radius: 12px; background: white; padding: 8px; }
+  .img-btn span { margin-top: 4px; font-size: 12px; font-weight: 600; color: #fff; }
+</style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="profile-container">
-      <img src="https://files.catbox.moe/huwv3s.jpg" alt="Yaoiii Profile">
-    </div>
 
-    <h1>I’m a Developers Bot Yaoiii</h1>
+<img src="https://files.catbox.moe/ln6g77.jpg" class="bg-image" alt="bg">
 
-    <!-- Tombol utama -->
-    <div class="btn-group">
-      <a href="https://wa.me/6283892079679?text=Halo" target="_blank">Chat WhatsApp</a>
-      <a href="https://wa.me/6283892079679?text=Halo%20Bot" target="_blank">Bot WhatsApp</a>
-      <button onclick="toggleDropdown()">Kebutuhan Bot</button>
-    </div>
+<div class="wrapper">
+  <div class="logo-wrapper">
+    <img src="https://files.catbox.moe/ln6g77.jpg" alt="Logo" class="logo">
+    <div class="logo-frame"></div>
+  </div>
+  <p class="logo-title">© Yaoii Not Dev</p>
 
-    <!-- Dropdown Web -->
-    <div class="dropdown" id="dropdownMenu">
-      <a href="#">Web 1</a>
-      <a href="#">Web 2</a>
-      <a href="#">Web 3</a>
-    </div>
+  <h1>I’m a Developers Bot Yaoiii</h1>
 
-    <!-- Player Musik -->
-    <div class="music-player">
-      <div class="play-btn" id="playBtn">▶</div>
-      <div class="song-title">Lagu: Yaoiii</div>
-      <a class="spotify-link" href="https://open.spotify.com/" target="_blank">🎵 Play on Spotify</a>
+  <div class="btn-group">
+    <button id="apiBtn">Kebutuhan API Bot</button>
+    <div class="sub-buttons" id="subButtons">
+      <a href="https://example.com/web1" target="_blank" class="mini-btn"><img src="https://cdn-icons-png.flaticon.com/512/992/992651.png"> Web 1</a>
+      <a href="https://example.com/web2" target="_blank" class="mini-btn"><img src="https://cdn-icons-png.flaticon.com/512/992/992651.png"> Web 2</a>
+      <a href="https://example.com/web3" target="_blank" class="mini-btn"><img src="https://cdn-icons-png.flaticon.com/512/992/992651.png"> Web 3</a>
     </div>
   </div>
 
-  <!-- Audio (tidak autoplay) -->
-  <audio id="audioPlayer">
-    <source src="https://files.catbox.moe/ispjbw.mp3" type="audio/mpeg">
-  </audio>
+  <div class="player-bar">
+    <img src="https://files.catbox.moe/g5ecyj.jpeg" alt="cover" class="cover">
+    <div class="info">
+      <p class="title">Yaoii Music</p>
+      <span class="time" id="time">0:00 / 0:00</span>
+    </div>
+    <button id="playPauseBtn" class="play-btn">
+      <img id="playIcon" src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Play">
+    </button>
+  </div>
+  <audio id="audio" src="https://files.catbox.moe/xit3pc.mp3"></audio>
 
-  <script>
-    function toggleDropdown() {
-      const menu = document.getElementById("dropdownMenu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
+  <div class="bottom-links">
+    <a href="https://wa.me/6283892079679?text=Halo%20Owner" target="_blank" class="img-btn"><img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Owner"><span>Owner</span></a>
+    <a href="https://wa.me/6283892079679?text=Halo%20Bot" target="_blank" class="img-btn"><img src="https://cdn-icons-png.flaticon.com/512/565/565547.png" alt="Bot"><span>Bot</span></a>
+    <a href="https://github.com/" target="_blank" class="img-btn"><img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="GitHub"><span>GitHub</span></a>
+  </div>
+</div>
 
-    const audio = document.getElementById("audioPlayer");
-    const playBtn = document.getElementById("playBtn");
-    let isPlaying = false;
+<script>
+  const apiBtn = document.getElementById('apiBtn');
+  const subButtons = document.getElementById('subButtons');
+  apiBtn.addEventListener('click', () => subButtons.classList.toggle('show'));
 
-    playBtn.addEventListener("click", () => {
-      if (isPlaying) {
-        audio.pause();
-        playBtn.textContent = "▶";
-      } else {
-        audio.play();
-        playBtn.textContent = "⏸";
-      }
-      isPlaying = !isPlaying;
-    });
-  </script>
+  const audio = document.getElementById("audio");
+  const timeEl = document.getElementById("time");
+  const playBtn = document.getElementById("playPauseBtn");
+  const playIcon = document.getElementById("playIcon");
+
+  const playImg = "https://cdn-icons-png.flaticon.com/512/727/727245.png";
+  const pauseImg = "https://cdn-icons-png.flaticon.com/512/64/64595.png";
+
+  playBtn.addEventListener("click", () => {
+    if(audio.paused){ audio.play(); playIcon.src = pauseImg; } 
+    else { audio.pause(); playIcon.src = playImg; }
+  });
+
+  audio.addEventListener("timeupdate", () => {
+    const c = audio.currentTime;
+    const d = audio.duration || 0;
+    const format = (t) => `${Math.floor(t/60)}:${Math.floor(t%60).toString().padStart(2,'0')}`;
+    timeEl.textContent = `${format(c)} / ${format(d)}`;
+  });
+
+  // -------- Random frame color + kelap-kelip --------
+  const frame = document.querySelector('.logo-frame');
+  function randomRGB(){ return `rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`; }
+
+  function blinkFrame(){
+    const color = randomRGB();
+    frame.style.boxShadow = `0 0 25px 5px ${color}`;
+    frame.style.borderTopColor = color;
+  }
+  setInterval(blinkFrame, 800); // kelap-kelip tiap 0.8 detik
+</script>
+
 </body>
-</html>
+  </html>
