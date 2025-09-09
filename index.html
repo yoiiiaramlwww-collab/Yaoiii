@@ -1,107 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Developers Bot Yaoiii</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #000;
-    overflow: hidden;
-  }
+  <meta charset="UTF-8">
+  <!-- Biar pas di HP -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Developers Bot Yaoiii</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      overflow: hidden;
+    }
 
-  .bg-image {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    z-index: -2;
-    filter: blur(6px) brightness(0.5);
-  }
+    .bg-image {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: blur(6px) brightness(0.5);
+    }
 
-  .wrapper {
-    width: 90%;
-    max-width: 500px;
-    background: rgba(0,0,0,0.55);
-    border-radius: 20px;
-    padding: 30px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-  }
+    .wrapper {
+      width: 95%;
+      max-width: 600px; /* lebih besar biar pas di HP */
+      background: rgba(0,0,0,0.55);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
 
-  .logo-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 120px;
-    height: 120px;
-    margin-bottom: 8px;
-  }
-  .logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    border: 3px solid #000;
-  }
+    .logo-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 8px;
+    }
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      border: 3px solid #000;
+    }
+    .logo-frame {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      border-top: 4px solid #fff;
+      box-shadow: 0 0 25px 5px #fff;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      animation: spin 4s linear infinite, blink 1s infinite;
+    }
+    @keyframes spin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0.5; }
+    }
 
-  .logo-frame {
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid transparent;
-    border-top: 4px solid #fff; /* placeholder */
-    box-shadow: 0 0 25px 5px #fff; /* placeholder */
-    z-index: 1;
-    transform: translate(-50%, -50%);
-    animation: spin 4s linear infinite, blink 1s infinite;
-  }
-  @keyframes spin {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to   { transform: translate(-50%, -50%) rotate(360deg); }
-  }
-  @keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0.5; }
-  }
+    .logo-title { font-size: 13px; margin-bottom: 15px; }
+    h1 { font-size: 28px; margin-bottom: 20px; text-shadow: 0 0 10px #fff; }
 
-  .logo-title { font-size: 12px; margin-bottom: 15px; }
-  h1 { font-size: 24px; margin-bottom: 20px; text-shadow: 0 0 10px #fff; }
+    .btn-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+    .btn-group button { padding: 12px 16px; font-size: 15px; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; }
 
-  .btn-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
-  .btn-group button { padding: 10px 14px; font-size: 14px; font-weight: 600; border-radius: 10px; border: none; cursor: pointer; }
+    .sub-buttons { display: flex; flex-direction: column; gap: 8px; max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; }
+    .sub-buttons.show { max-height: 500px; opacity: 1; }
+    .mini-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 14px; font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; background: linear-gradient(135deg, #ff9f43, #ff6f00); margin: 5px auto; width: 180px; }
+    .mini-btn img { width: 16px; height: 16px; }
 
-  .sub-buttons { display: flex; flex-direction: column; gap: 8px; max-height: 0; overflow: hidden; opacity: 0; transition: all 0.5s ease; }
-  .sub-buttons.show { max-height: 500px; opacity: 1; }
-  .mini-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 8px; text-decoration: none; color: white; background: linear-gradient(135deg, #ff9f43, #ff6f00); margin: 5px auto; width: 160px; }
-  .mini-btn img { width: 14px; height: 14px; }
+    .player-bar { display: flex; align-items: center; gap: 14px; padding: 10px 16px; background: rgba(255,255,255,0.9); border-radius: 16px; margin-top: 20px; color: #000; }
+    .cover { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; }
+    .info { flex: 1; text-align: left; }
+    .title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: #000; }
+    .time { font-size: 12px; color: #555; }
+    .play-btn { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 50%; }
+    .play-btn img { width: 32px; height: 32px; }
 
-  .player-bar { display: flex; align-items: center; gap: 14px; padding: 10px 16px; background: rgba(255,255,255,0.9); border-radius: 16px; margin-top: 20px; color: #000; }
-  .cover { width: 46px; height: 46px; border-radius: 12px; object-fit: cover; }
-  .info { flex: 1; text-align: left; }
-  .title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: #000; }
-  .time { font-size: 12px; color: #555; }
-  .play-btn { background: none; border: none; cursor: pointer; padding: 6px; border-radius: 50%; }
-  .play-btn img { width: 32px; height: 32px; }
+    .bottom-links { display: flex; justify-content: center; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+    .img-btn { display: flex; flex-direction: column; align-items: center; text-decoration: none; }
+    .img-btn img { width: 50px; height: 50px; border-radius: 12px; background: white; padding: 8px; }
+    .img-btn span { margin-top: 4px; font-size: 13px; font-weight: 600; color: #fff; }
 
-  .bottom-links { display: flex; justify-content: center; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
-  .img-btn { display: flex; flex-direction: column; align-items: center; text-decoration: none; }
-  .img-btn img { width: 48px; height: 48px; border-radius: 12px; background: white; padding: 8px; }
-  .img-btn span { margin-top: 4px; font-size: 12px; font-weight: 600; color: #fff; }
-</style>
+    /* Responsif untuk layar kecil */
+    @media (max-width: 480px) {
+      h1 { font-size: 22px; }
+      .logo-wrapper { width: 100px; height: 100px; }
+      .logo { width: 80px; height: 80px; }
+      .btn-group button { font-size: 13px; padding: 10px 12px; }
+      .mini-btn { font-size: 12px; width: 150px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -169,17 +179,15 @@
     timeEl.textContent = `${format(c)} / ${format(d)}`;
   });
 
-  // -------- Random frame color + kelap-kelip --------
   const frame = document.querySelector('.logo-frame');
   function randomRGB(){ return `rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`; }
-
   function blinkFrame(){
     const color = randomRGB();
     frame.style.boxShadow = `0 0 25px 5px ${color}`;
     frame.style.borderTopColor = color;
   }
-  setInterval(blinkFrame, 800); // kelap-kelip tiap 0.8 detik
+  setInterval(blinkFrame, 800);
 </script>
 
 </body>
-  </html>
+</html>  
